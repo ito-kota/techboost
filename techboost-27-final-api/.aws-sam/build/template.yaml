@@ -1,0 +1,90 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: 'techboost-27-api
+
+  Sample SAM Template for techboost-27-api
+
+  '
+Parameters:
+  DBHOST:
+    Type: String
+  DBUSER:
+    Type: String
+  DBPASSWORD:
+    Type: String
+Globals:
+  Function:
+    Timeout: 5
+    MemorySize: 128
+    Environment:
+      Variables:
+        DB_HOST:
+          Ref: DBHOST
+        DB_USER:
+          Ref: DBUSER
+        DB_PASSWORD:
+          Ref: DBPASSWORD
+        DB_NAME: ca-techboost-27
+Resources:
+  YearsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: YearsFunction
+      Handler: years
+      Runtime: go1.x
+      Architectures:
+      - x86_64
+      Events:
+        CatchAll:
+          Type: Api
+          Properties:
+            Path: /years
+            Method: GET
+      Role: arn:aws:iam::880843126767:role/techboost-lambda
+    Metadata:
+      SamResourceId: YearsFunction
+  FetchFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: FetchFunction
+      Handler: fetch
+      Runtime: go1.x
+      Architectures:
+      - x86_64
+      Events:
+        CatchAll:
+          Type: Api
+          Properties:
+            Path: /fetch
+            Method: GET
+      Role: arn:aws:iam::880843126767:role/techboost-lambda
+    Metadata:
+      SamResourceId: FetchFunction
+  RegisterFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: RegisterFunction
+      Handler: register-data
+      Runtime: go1.x
+      Architectures:
+      - x86_64
+      Events:
+        CatchAll:
+          Type: Api
+          Properties:
+            Path: /register
+            Method: GET
+      Role: arn:aws:iam::880843126767:role/techboost-lambda
+    Metadata:
+      SamResourceId: RegisterFunction
+Outputs:
+  HelloWorldAPI:
+    Description: API Gateway endpoint URL for Prod environment for First Function
+    Value:
+      Fn::Sub: https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/hello/
+  YearsFunction:
+    Description: First Lambda Function ARN
+    Value:
+      Fn::GetAtt:
+      - YearsFunction
+      - Arn

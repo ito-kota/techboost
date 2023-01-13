@@ -1,0 +1,21 @@
+対象のデータ：
+
+東京都の分譲マンション推移
+https://catalog.data.metro.tokyo.lg.jp/dataset/t000008d0000000036/resource/f4279188-839d-401c-94d8-f3d404f4bf90
+
+用意するAPI
+1. 統計がとられている年度の一覧を返す /years
+2. 指定範囲の供給数がある年度を返す /years?count=xxx-yyy
+3. 指定範囲の平均専有面積がある年度を返す /years?area=xxx-yyy
+#4. 指定範囲の前年比価格上昇率の年度を返す /years?
+5. 指定範囲の平均価格の年度を返す /years?price=xxx-yyy
+6. 年度を指定して供給数・平均専有面積・平均価格を返す /fetch?year=xxx 指定がない場合はすべて
+
+
+テーブル情報
+テーブル名：ApartmentData
+カラム：
+year integer not null primary
+number integer not null
+area double not null
+price integer not null
