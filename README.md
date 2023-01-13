@@ -7,7 +7,7 @@ https://catalog.data.metro.tokyo.lg.jp/dataset/t000008d0000000036/resource/f4279
 
 
 ## APIの仕様
-https://ito-kota.github.io/techboost/sapi_document.html
+[API](/api_document.html)
 
 ## データベーステーブル
 テーブル名：ApartmentData<br>
